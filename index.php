@@ -2,11 +2,6 @@
 
 include('./libs/lib_bdd.php');
 
-insertInTable('utilisateurs', [
-    "nom" => 'CACACACAC'
-]);
-
-
 ?>
 
 <!DOCTYPE html>

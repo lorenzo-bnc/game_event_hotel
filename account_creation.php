@@ -12,11 +12,12 @@ if (isset($_POST['valider'])) {
     $email = $_POST['email'];
     $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT); // Hachage du mot de passe
 
-    $pdo = getDB();
-    // 3. Insertion simple en base de données
-    $sql = $pdo->prepare("INSERT INTO utilisateurs (nom, prenom, num_tel, date_naiss, email, mot_de_passe) VALUES (?, ?, ?, ?, ?,?)");
+    $result = insertInTable(
+        'utilisateurs', 
+        [null, $nom, $prenom, $mdp, $email, $num_tel, $date_naiss]
+    );
     
-    if ($sql->execute([$nom, $prenom, $num_tel, $date_naiss, $email, $mdp])) {
+    if ($result) {
         $message = "Inscription réussie !";
     } else {
         $message = "Erreur lors de l'inscription.";

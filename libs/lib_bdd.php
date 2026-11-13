@@ -13,39 +13,34 @@
         }
     };
 
-    /**
-     * Résumé de insertInTable
-     * @param string $tableName
-     * @param array $champsAndValues
-     * @return bool | PDOException
-     */
-    function insertInTable(string $tableName, array $champsAndValues): bool|PDOException
+    function insertInTable(string $tableName, array $values) : bool|PDOException
     {
-        try {
+        try{
             $pdo = getDB();
 
-            $champs = "";
-            $placeholders = "";
-            $values = [];
-
-            foreach ($champsAndValues as $nameChamp => $valuesChamp) {
-                $champs = $champs . $nameChamp . ", ";
-                $placeholders = $placeholders . ":" . $nameChamp . ", ";
-                $values[":" . $nameChamp] = $valuesChamp;
+            $filler = "";
+            foreach($values as $value) {
+                $filler .= "?, ";
             }
 
-            $champs = rtrim($champs, ", ");
-            $placeholders = rtrim($placeholders, ", ");
-
-            $rqt = "INSERT INTO $tableName ($champs)
-                    VALUES ($placeholders)";
+            $filler = rtrim($filler, ', ');
+            
+            $rqt = <<<SQL
+                INSERT INTO $tableName SELECT $filler
+            SQL;
 
             $stmt = $pdo->prepare($rqt);
             $result = $stmt->execute($values);
 
-            return $result ? true : false;
+            if($result){
+                return true;
+            }
+            
+            return false;
         }
-        catch (PDOException $error) {
+        catch(PDOException $error){
             return $error;
         }
-    }
+    };
+
+    
