@@ -14,13 +14,19 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
 
     $sql = "SELECT COUNT(*), id_utilisateur, prenom AS nb FROM utilisateurs WHERE email = '$email' AND mot_de_passe = '$password'";
 
+    echo $sql;
+    
     $resultat = mysqli_query($connexion, $sql);
 
     while($chaqueLigne = mysqli_fetch_assoc($resultat)){
         if($chaqueLigne["nb"] == 1){
 
             $id_utilisateur = $chaqueLigne["id_utilisateur"];
+            echo $id_utilisateur;
             $prenom = $chaqueLigne["prenom"];
+            echo $prenom;
+
+
 
             $header = [
                 "alg" => "sha256",
@@ -37,6 +43,9 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             setcookie("token",$jwt);
 
             header("Location: index.html");
+        }
+        else{
+            echo "tg";
         }
 
     }
