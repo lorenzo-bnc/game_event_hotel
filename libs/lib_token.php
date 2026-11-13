@@ -26,7 +26,7 @@ function checkJWT($jwt){
 
         $data = $tokenParts[0].".".$tokenParts[1];
 
-        $hashWithSecret = hash_hmac("sha256",$data,"caca",true);
+        $hashWithSecret = hash_hmac("sha256",$data,$cle_secrete,true);
 
         $hashWithSecret_encode64 = base64_encode($hashWithSecret);
 

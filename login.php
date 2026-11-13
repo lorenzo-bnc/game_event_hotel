@@ -8,11 +8,22 @@ include('./libs/lib_token.php');
 if(isset($_POST["email"]) && isset($_POST["password"])){
 
     $email = $_POST["email"];
-    $password = $_POST["password"];
+    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
     $connexion = mysqli_connect("localhost","root","","game_event_hotel");
 
-    $sql = "SELECT COUNT(*) AS nb, id_utilisateur, prenom FROM utilisateurs WHERE email = '$email' AND mot_de_passe = '$password'";
+    $sql = "SELECT COUNT(*) AS nb, id_utilisateur, prenom FROM utilisateurs WHERE email = ? AND mot_de_passe = ?";
+
+    $requete = mysqli_prepare($connexion, $sql);
+
+    mysqli_stmt_bind_param($requete, "ss", $email, $password);
+
+    mysqli_stmt_execute($requete);
+
+    $resultat = mysqli_stmt_get_result($requete);
+
+    $chaqueLigne = mysqli_fetch_assoc($resultat);
+
 
     $resultat = mysqli_query($connexion, $sql);
 
