@@ -2,7 +2,6 @@
 //Dev by Pablo
 $cle_secrete = "875b71e974075d5b65960329fcdc48ca6c3f9801dcc9429835dd91c029c292fc";
 
-
 function makeJWT($header, $payload, $cle_secrete){
     $header64 = base64_encode(json_encode($header));
     $payload64 = base64_encode(json_encode($payload));
