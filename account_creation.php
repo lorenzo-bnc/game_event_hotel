@@ -55,8 +55,8 @@ if (isset($_POST['valider'])) {
           <input type="text" name="nom" placeholder="nom" required><br><br>
          <input type="text" name="prenom" placeholder="prenom" required><br><br>
         <input type="email" name="email" placeholder="Email" required><br><br>
-         <input type="telephone" name="telephone" placeholder="Telephone" required><br><br>
-        <input type="date de naissance" name="date de naissance" placeholder="Date de naissance" required><br><br>
+         <input type="tel" name="telephone" placeholder="Telephone" required><br><br>
+        <input type="text" name="date de naissance" placeholder="Date de naissance" required><br><br>
         <input type="password" name="mdp" placeholder="Mot de passe" required><br><br>
         <button type="submit" name="valider">S'inscrire</button>
       </form>
