@@ -12,10 +12,10 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
 
     $connexion = mysqli_connect("localhost","root","","game_event_hotel");
 
-    $sql = "SELECT COUNT(*), id_utilisateur, prenom AS nb FROM utilisateurs WHERE email = '$email' AND mot_de_passe = '$password'";
+    $sql = "SELECT COUNT(*) AS nb, id_utilisateur, prenom FROM utilisateurs WHERE email = '$email' AND mot_de_passe = '$password'";
 
     echo $sql;
-    
+
     $resultat = mysqli_query($connexion, $sql);
 
     while($chaqueLigne = mysqli_fetch_assoc($resultat)){
