@@ -16,7 +16,7 @@ function getPayloadJWT($jwt){
 
     return json_decode(base64_decode($payload));
 }
-function checkJWT($jwt){
+function checkJWT($jwt, $cle_secrete){
 
     $regex = "/(([A-Za-z0-9+\/!=]+)\.){2}(?2)/";
 
