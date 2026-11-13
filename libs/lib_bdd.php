@@ -1,5 +1,5 @@
 <?php
-
+// Dev by Lorenzo
     function getDB() : PDO|PDOException
     {
         try{
@@ -11,6 +11,20 @@
         catch(PDOException $error){
             return $error;
         }
-    }
+    };
+
+    function insertInTable(string $name, array $champs_and_values) : PDO|PDOException
+    {
+        try{
+            $pdo = getDB();
+
+            $rqt = <<<SQL
+                INSERT INTO :name
+                VALUES 
+            SQL;
+
+            $stmt = $pdo->prepare($rqt);
+        }
+    };
 
     
