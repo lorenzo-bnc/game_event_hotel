@@ -24,40 +24,28 @@
         try {
             $pdo = getDB();
 
-            if (preg_match('/[A-Za-z_][A-Za-z0-9_]*/', $tableName) === 0) {
-                throw new PDOException("Nom de table invalide");
-            }
-
-            $champs = [];
-            $placeholders = [];
+            $champs = "";
+            $placeholders = "";
             $values = [];
 
-            foreach ($champsAndValues as $unChamp) {
-                $name = trim($unChamp['name']);
-                $value = $unChamp['value'];
-
-                if (preg_match('/[A-Za-z_][A-Za-z0-9_]*/', $name) === 0) {
-                    throw new PDOException("Nom de colonne invalide : " . $name);
-                }
-
-                $champs[] = $name;
-                $placeholders[] = ':' . $name;
-                $values[':' . $name] = $value;
+            foreach ($champsAndValues as $nameChamp => $valuesChamp) {
+                $champs = $champs . $nameChamp . ", ";
+                $placeholders = $placeholders . ":" . $nameChamp . ", ";
+                $values[":" . $nameChamp] = $valuesChamp;
             }
 
-            $champsSql = implode(', ', $champs);
-            $valuesSql = implode(', ', $placeholders);
+            $champs = rtrim($champs, ", ");
+            $placeholders = rtrim($placeholders, ", ");
 
-            $rqt = <<<SQL
-                INSERT INTO $tableName ($champsSql)
-                VALUES ($valuesSql)
-            SQL;
+            $rqt = "INSERT INTO $tableName ($champs)
+                    VALUES ($placeholders)";
 
             $stmt = $pdo->prepare($rqt);
             $result = $stmt->execute($values);
 
             return $result ? true : false;
-        } catch (PDOException $error) {
+        }
+        catch (PDOException $error) {
             return $error;
         }
     }
