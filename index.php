@@ -12,6 +12,10 @@ include('./libs/lib_bdd.php');
     <title>Document</title>
 </head>
 <body>
-    
+    <div class="container">
+        <div class="container1"></div>
+        <div class="container2"></div>
+        <div class="container3"></div>
+    </div>
 </body>
 </html>
