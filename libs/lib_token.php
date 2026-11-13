@@ -1,11 +1,11 @@
 <?php
 //Dev by Pablo
-$cle_secrete = "875b71e974075d5b65960329fcdc48ca6c3f9801dcc9429835dd91c029c292fc";
+$GLOBALS['cle_secrete'] = "875b71e974075d5b65960329fcdc48ca6c3f9801dcc9429835dd91c029c292fc";
 
-function makeJWT($header, $payload, $cle_secrete){
+function makeJWT($header, $payload){
     $header64 = base64_encode(json_encode($header));
     $payload64 = base64_encode(json_encode($payload));
-    $signature = base64_encode(hash_hmac("sha256",$header64.".".$payload64,$cle_secrete,true));
+    $signature = base64_encode(hash_hmac("sha256",$header64.".".$payload64,$GLOBALS['cle_secrete'],true));
 
     return $header64.".".$payload64.".".$signature;
 }
@@ -16,7 +16,7 @@ function getPayloadJWT($jwt){
 
     return json_decode(base64_decode($payload));
 }
-function checkJWT($jwt, $cle_secrete){
+function checkJWT($jwt){
 
     $regex = "/(([A-Za-z0-9+\/!=]+)\.){2}(?2)/";
 
@@ -26,7 +26,7 @@ function checkJWT($jwt, $cle_secrete){
 
         $data = $tokenParts[0].".".$tokenParts[1];
 
-        $hashWithSecret = hash_hmac("sha256",$data,$cle_secrete,true);
+        $hashWithSecret = hash_hmac("sha256",$data,$GLOBALS['cle_secrete'],true);
 
         $hashWithSecret_encode64 = base64_encode($hashWithSecret);
 

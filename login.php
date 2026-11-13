@@ -45,7 +45,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
                 "prenom" => "$prenom"
             ];
 
-            $jwt = makeJWT($header, $payload, $cle_secrete);
+            $jwt = makeJWT($header, $payload);
 
             setcookie("auth",$jwt);
 
