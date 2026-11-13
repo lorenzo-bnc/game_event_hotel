@@ -1,5 +1,32 @@
 <!-- Dev by Astou  -->
- <!DOCTYPE html>
+<?php
+include('libs\lib_bdd.php')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+?>
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
  <html lang="fr">
  <head>
     <meta charset="UTF-8">
@@ -10,7 +37,7 @@
     <div class="account_container" >
 
         <h1>Inscription ou création de compte</h1>
-        <div class=""
+        <div class=""></div>
 
 
     </div>
