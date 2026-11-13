@@ -1,6 +1,6 @@
 <?php
 //Dev by Pablo
-$cle_secrete = bin2hex(random_bytes(64));
+$cle_secrete = bin2hex(random_bytes(32));
 
 echo $cle_secrete;
 
