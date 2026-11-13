@@ -36,9 +36,9 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
 
             $jwt = makeJWT($header, $payload, $cle_secrete);
 
-            setcookie("token",$jwt);
+            setcookie("auth",$jwt);
 
-            header("Location: index.html");
+            header("Location: index.php");
         }
         else{
             header("Location: login.php");
