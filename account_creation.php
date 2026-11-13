@@ -34,11 +34,10 @@ include('libs\lib_bdd.php')
     <title>Document</title>
  </head>
  <body>
-    <div class="account_container" >
-
         <h1>Inscription ou création de compte</h1>
-        <div class=""></div>
-
+      <form method="post">
+         
+      </form>
 
     </div>
  </body>
