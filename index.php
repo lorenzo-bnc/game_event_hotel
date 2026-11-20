@@ -2,7 +2,16 @@
 
 include('./libs/lib_bdd.php');
 
- $connexion = "select * from evenements"; 
+$pdo = getDB();
+
+        $rqt = "select * from evenements";
+
+        $stmt = $pdo->prepare($rqt);
+        $stmt->execute();
+
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    var_dump($result);
 
 ?>
 
@@ -18,8 +27,7 @@ include('./libs/lib_bdd.php');
      
 
     <div class="container">
-        <div class="container1">
-        </div>
+        <div class="container1"></div>
         <div class="container2"></div>
         <div class="container3"></div>
     </div>
