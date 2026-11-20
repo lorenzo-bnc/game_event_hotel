@@ -22,5 +22,16 @@ function isAdmin($jwt){
     $payload = getPayloadJWT($jwt);
     $id_utilisateur = $payload["id_utilisateur"];
 
+    try{
+        $pdo = getDB();
+
+        $rqt = "SELECT COUNT(*) AS nb 
+                FROM organisateurs
+                WHERE id_organisateur = :id_utilisateur";
+        
+    }
+    catch(PDOException $error){
+        $error->getMessage();
+    }
 
 }
