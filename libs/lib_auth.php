@@ -1,5 +1,6 @@
 <?php
 include("lib_token.php");
+include("lib_bdd.php");
 
 function logOut(){
     setcookie("auth", "suppression...", 1);
@@ -21,5 +22,5 @@ function isAdmin($jwt){
     $payload = getPayloadJWT($jwt);
     $id_utilisateur = $payload["id_utilisateur"];
 
-    
+
 }
