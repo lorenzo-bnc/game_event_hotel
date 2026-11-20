@@ -1,0 +1,15 @@
+:root{
+    --bg-primary: rgb(30, 30, 30);
+    --color-primary: rgb(229, 229, 229);
+    --bg-navbar: rgb(39, 39, 39);
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    color: black
+}
+
+body{
+    background-color: var(--bg-primary);
+}

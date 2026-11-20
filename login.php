@@ -3,31 +3,27 @@
 include('./libs/lib_bdd.php');
 include('./libs/lib_token.php');
 
-
-
 if(isset($_POST["email"]) && isset($_POST["password"])){
 
     $email = $_POST["email"];
     $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
 
-    $connexion = mysqli_connect("localhost","root","","game_event_hotel");
+    $pdo = getDB();
 
-    $sql = "SELECT COUNT(*) AS nb, id_utilisateur, prenom FROM utilisateurs WHERE email = ? AND mot_de_passe = ?";
+    $rqt = <<<SQL
+        SELECT COUNT(*) AS nb, id_utilisateur, prenom 
+        FROM utilisateurs 
+        WHERE email = :mail
+        AND mot_de_passe = :mdp
+    SQL;
 
-    $requete = mysqli_prepare($connexion, $sql);
+    $stmt = $pdo->prepare($rqt);
+    $result = $stmt->execute([
+        ":mail" => $email,
+        ":mdp" => $password
+    ]);
 
-    mysqli_stmt_bind_param($requete, "ss", $email, $password);
-
-    mysqli_stmt_execute($requete);
-
-    $resultat = mysqli_stmt_get_result($requete);
-
-    $chaqueLigne = mysqli_fetch_assoc($resultat);
-
-
-    $resultat = mysqli_query($connexion, $sql);
-
-    while($chaqueLigne = mysqli_fetch_assoc($resultat)){
+    var_dump($result);
         if($chaqueLigne["nb"] == 1){
 
             $id_utilisateur = $chaqueLigne["id_utilisateur"];
@@ -56,8 +52,6 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         }
 
     }
-
-}
 
 ?>
 
