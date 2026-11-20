@@ -4,14 +4,14 @@ include('./libs/lib_bdd.php');
 
 $pdo = getDB();
 
-        $rqt = "select * from evenements";
+        $rqt = "SELECT * FROM evenements";
 
-        $stmt = $pdo->prepare($rqt);
-        $stmt->execute();
+        $execution = $pdo->query($rqt);
 
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $result = $execution->fetchAll(PDO::FETCH_ASSOC);
 
-    var_dump($result);
+        var_dump($result);
+    
 
 ?>
 
