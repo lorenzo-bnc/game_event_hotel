@@ -16,9 +16,9 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         $password = $_POST["password"];
 
         $rqt = "SELECT COUNT(*) AS nb, id_user 
-                FROM users 
+                FROM utilisateurs 
                 WHERE email = :email 
-                AND password = SHA2(:pwd, 256)";
+                AND mot_de_passe = SHA2(:pwd, 256)";
 
         $stmt = $pdo->prepare($rqt);
         $stmt->execute([
