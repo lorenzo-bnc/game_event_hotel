@@ -27,6 +27,13 @@ $pdo = getDB();
             foreach($result as $unResult){
                 echo '<div><p>'.$unResult['nom'].'</p></div>';
                 echo '<div><p>'.$unResult['description'].'</p></div>';
+                echo '<div><p>'.$unResult['places_max'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_debut'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_fin_prevue'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_fin'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_debut_prevue'].'</p></div>';
+
+
                 echo '<br/>';
             }
         ?>
