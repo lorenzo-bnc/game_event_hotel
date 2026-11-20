@@ -2,6 +2,7 @@
 <?php
 include('./libs/lib_auth.php');
 verifCnx();
+$is_admin = isAdmin($_COOKIE['auth']);
 ?>
 <!DOCTYPE html>
 <html lang="fr">
