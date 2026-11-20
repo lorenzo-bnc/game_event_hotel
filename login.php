@@ -31,7 +31,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         if($result["nb"] == 1){
             echo "connexion réussie";
 
-            $expiration = date("Y/m/d H:i:s",strtotime("+15 minutes"));
+            $expiration = date("Y-m-d H:i:s", strtotime("+15 minutes"));
 
             $idUser = $result["id_utilisateur"];
 
