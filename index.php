@@ -32,8 +32,6 @@ $pdo = getDB();
                 echo '<div><p>'.$unResult['date_heure_fin_prevue'].'</p></div>';
                 echo '<div><p>'.$unResult['date_heure_fin'].'</p></div>';
                 echo '<div><p>'.$unResult['date_heure_debut_prevue'].'</p></div>';
-
-
                 echo '<br/>';
             }
         ?>
