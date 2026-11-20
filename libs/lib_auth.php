@@ -17,3 +17,9 @@ function verifCnx(){
     }
 }
 
+function isAdmin($jwt){
+    $payload = getPayloadJWT($jwt);
+    $id_utilisateur = $payload["id_utilisateur"];
+
+    
+}

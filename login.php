@@ -15,8 +15,8 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         $email = $_POST["email"];
         $password = $_POST["password"];
 
-        $rqt = "SELECT COUNT(*) AS nb, id_user 
-                FROM utilisateurs 
+        $rqt = "SELECT COUNT(*) AS nb, id_utilisateur 
+                FROM utilisateurs
                 WHERE email = :email 
                 AND mot_de_passe = SHA2(:pwd, 256)";
 
@@ -31,7 +31,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         if($result["nb"] == 1){
             echo "connexion réussie";
 
-            $idUser = $result["id_user"];
+            $idUser = $result["id_utilisateur"];
 
             $header = [
                 "alg" => "sha256",
@@ -39,7 +39,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             ];
 
             $payload = [
-                "id_user" => "$idUser"
+                "id_utilisateur" => "$idUser"
             ];
 
             $jwt = makeJWT($header, $payload);
