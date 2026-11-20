@@ -1,35 +1,37 @@
-<!-- Dev by Pablo and Astou  -->
 <?php
-include('./libs/lib_bdd.php');
-include('./libs/lib_token.php');
+include("./libs/lib_bdd.php");
+include("./libs/lib_token.php");
+
+if(isset($_COOKIE['auth'])){
+   if(checkJWT($_COOKIE['auth'])){
+        header('Location: index.php');
+    }
+}
 
 if(isset($_POST["email"]) && isset($_POST["password"])){
+    try{
+        $pdo = getDB();
 
-    $email = $_POST["email"];
-    $password = password_hash($_POST["password"], PASSWORD_DEFAULT);
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
-    $pdo = getDB();
+        $rqt = "SELECT COUNT(*) AS nb, id_user 
+                FROM users 
+                WHERE email = :email 
+                AND password = SHA2(:pwd, 256)";
 
-    $rqt = <<<SQL
-        SELECT COUNT(*) AS nb, id_utilisateur, prenom 
-        FROM utilisateurs 
-        WHERE email = :mail
-        AND mot_de_passe = :mdp
-    SQL;
+        $stmt = $pdo->prepare($rqt);
+        $stmt->execute([
+            ":email" => $email,
+            ":pwd" => $password
+        ]);
 
-    $stmt = $pdo->prepare($rqt);
-    $result = $stmt->execute([
-        ":mail" => $email,
-        ":mdp" => $password
-    ]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    var_dump($result);
-        if($chaqueLigne["nb"] == 1){
+        if($result["nb"] == 1){
+            echo "connexion réussie";
 
-            $id_utilisateur = $chaqueLigne["id_utilisateur"];
-            $prenom = $chaqueLigne["prenom"];
-
-
+            $idUser = $result["id_user"];
 
             $header = [
                 "alg" => "sha256",
@@ -37,49 +39,42 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             ];
 
             $payload = [
-                "id_utilisateur" => "$id_utilisateur",
-                "prenom" => "$prenom"
+                "id_user" => "$idUser"
             ];
 
             $jwt = makeJWT($header, $payload);
+            setcookie("auth", $jwt);
 
-            setcookie("auth",$jwt);
-
-            header("Location: index.php");
+            header('Location: index.php');
         }
         else{
-            header("Location: login.php");
+            echo "connexion échouée";
         }
-
     }
-
+    catch(PDOException $error){
+        $error->getMessage();
+    }
+}
 ?>
 
-
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de Connexion</title>
+    <?php require_once('./includes/header.php'); ?>
+    <title>Connexion</title>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Connexion</h1>
+    <header style="display: none">
+    </header>
+    <main>
         <form method="POST">
-            
-            <div class="input-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="input-group">
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-
+            <input type="email" name="email" placeholder="Entrez votre email" required>
+            <input type="password" name="password" placeholder="Entrez votre mot de passe" required>
             <button type="submit">Se connecter</button>
         </form>
-    </div>
+    </main>
+    <footer>
+
+    </footer>
 </body>
 </html>
