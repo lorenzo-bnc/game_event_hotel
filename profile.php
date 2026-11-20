@@ -4,7 +4,9 @@ include("./libs/lib_auth.php");
 include("./libs/lib_token.php");
 
 
-$idUser = getPayloadJWT($_COOKIE["auth"])["id_utilisateur"];
+$payload = getPayloadJWT($_COOKIE["auth"]);
+
+$idUser = $payload["id_utilisateur"];
 
 echo $idUser;
 
