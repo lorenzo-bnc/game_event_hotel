@@ -31,6 +31,8 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         if($result["nb"] == 1){
             echo "connexion réussie";
 
+            $expiration = date("Y/m/d H:i:s",strtotime("+15 minutes"));
+
             $idUser = $result["id_utilisateur"];
 
             $header = [
@@ -39,7 +41,8 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             ];
 
             $payload = [
-                "id_utilisateur" => "$idUser"
+                "id_utilisateur" => "$idUser",
+                "expiration" => "$expiration"
             ];
 
             $jwt = makeJWT($header, $payload);

@@ -51,7 +51,17 @@ function checkJWT($jwt){
 
         $hashWithSecret_encode64 = base64url_encode($hashWithSecret);
 
-        return hash_equals($tokenParts[2],$hashWithSecret_encode64);
+        if(hash_equals($tokenParts[2],$hashWithSecret_encode64)){
+            $expiration = $tokenParts[2]['expiration'];
+            echo $expiration;
+            return true;
+
+
+        }
+        else{
+            return false;
+        }
+    
     }
 
 }
