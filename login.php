@@ -53,6 +53,7 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         }
         else{
             echo "connexion échouée";
+        }
     }
     catch(PDOException $error){
         $error->getMessage();
