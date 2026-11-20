@@ -10,8 +10,9 @@ $pdo = getDB();
 
         $result = $execution->fetchAll(PDO::FETCH_ASSOC);
 
-        var_dump($result);
-    
+        foreach($result as $unResult){
+            var_dump($unResult);
+        }
 
 ?>
 
