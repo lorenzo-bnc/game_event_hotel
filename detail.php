@@ -1,5 +1,8 @@
 <!-- Dev by Astou  -->
-
+<?php
+include('./libs/lib_auth.php');
+verifCnx();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
