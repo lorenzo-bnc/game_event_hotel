@@ -35,8 +35,25 @@ $pdo = getDB();
                 echo '<br/>';
             }
         ?>
-        <div class="container1"></div>
-        <div class="container2"></div>
+        <div class="container1">
+             <?php
+            foreach($result as $unResult){
+                echo '<div><p>'.$unResult['places_max'].'</p></div>';
+                echo '<br/>';
+            }
+        ?>
+        </div>
+        <div class="container2">
+             <?php
+            foreach($result as $unResult){
+                echo '<div><p>'.$unResult['date_heure_debut'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_fin_prevue'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_fin'].'</p></div>';
+                echo '<div><p>'.$unResult['date_heure_debut_prevue'].'</p></div>';
+                echo '<br/>';
+            }
+        ?>
+        </div>
         <div class="container3"></div>
     </div>
 </body>
