@@ -11,7 +11,8 @@ $pdo = getDB();
         $result = $execution->fetchAll(PDO::FETCH_ASSOC);
 
         foreach($result as $unResult){
-            var_dump($unResult);
+            echo $unResult['nom'];
+            echo '<br/>';
         }
 
 ?>
