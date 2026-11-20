@@ -25,6 +25,8 @@ $pdo = getDB();
     <div class="container">
         <?php
             foreach($result as $unResult){
+              
+                echo "<div class='container4'>"; 
                 echo '<div><p>'.$unResult['nom'].'</p></div>';
                 echo '<div><p>'.$unResult['description'].'</p></div>';
                 echo '<div><p>'.$unResult['places_max'].'</p></div>';
@@ -32,11 +34,11 @@ $pdo = getDB();
                 echo '<div><p>'.$unResult['date_heure_fin_prevue'].'</p></div>';
                 echo '<div><p>'.$unResult['date_heure_fin'].'</p></div>';
                 echo '<div><p>'.$unResult['date_heure_debut_prevue'].'</p></div>';
-                echo '<br/>';
+                echo "</div>";
             }
         ?>
         <div class="container1">
-            
+
         </div>
         <div class="container2">
         </div>
