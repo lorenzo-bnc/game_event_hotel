@@ -9,12 +9,6 @@ $pdo = getDB();
         $execution = $pdo->query($rqt);
 
         $result = $execution->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach($result as $unResult){
-            echo $unResult['nom'];
-            echo '<br/>';
-        }
-
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +23,13 @@ $pdo = getDB();
      
 
     <div class="container">
+        <?php
+            foreach($result as $unResult){
+                echo '<div><p>'.$unResult['nom'].'</p></div>';
+                echo '<div><p>'.$unResult['description'].'</p></div>';
+                echo '<br/>';
+            }
+        ?>
         <div class="container1"></div>
         <div class="container2"></div>
         <div class="container3"></div>
