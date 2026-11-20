@@ -32,9 +32,6 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
             
             echo "connexion réussie";
 
-            Logger::infoLog("[INFO LOG] Le ".date("Y-m-d")." à ".date("H-i:s"). " l'utilisateur : $email à réussi à se connecter\n");
-            Logger::debugLog("[DEBUG LOG] Le ".date("Y-m-d")." à ".date("H-i:s")." voici ce qu'à retourné la requête SQL : ".$sql." lors de la connexion de : $email\n");
-
             $expiration = date("Y-m-d H:i:s", strtotime("+15 minutes"));
 
             $idUser = $result["id_utilisateur"];
@@ -56,10 +53,6 @@ if(isset($_POST["email"]) && isset($_POST["password"])){
         }
         else{
             echo "connexion échouée";
-
-            Logger::errorLog("[ERROR LOG] Le ".date("Y-m-d")." à ".date("H-i:s")." l'utilisateur : $email à échoué sa connexion\n");
-            Logger::debugLog("[DEBUG LOG] Le ".date("Y-m-d")." à ".date("H-i:s")." voici ce qu'à retourné la requête SQL : ".$sql." lorsque la connexion de : $email à échouée\n");
-        }
     }
     catch(PDOException $error){
         $error->getMessage();
