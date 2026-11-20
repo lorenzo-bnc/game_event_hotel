@@ -1,46 +1,52 @@
-<!-- Dev by Astou  -->
 <?php
-    require_once('libs\lib_bdd.php');
+//Dev by Pablo
 
-    if (isset($_POST['valider'])) {
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $num_tel = $_POST['num_tel'];
-        $date_naiss = $_POST['date_naiss'];
-        $email = $_POST['email'];
+include('./libs/lib_bdd.php');
+if(isset($_POST["email"]) && isset($_POST["password"]) && isset($_POST["username"])){
+    try{
+        $email = $_POST["email"];
+        $password = $_POST["password"];
+        $username = $_POST["username"];
 
-        $mdp = password_hash($_POST['mdp'], PASSWORD_DEFAULT);
+        $pdo = getDB();
 
-        $result = insertInTable(
-            'utilisateurs', 
-            [null, $nom, $prenom, $mdp, $email, $num_tel, $date_naiss]
-        );
+        $rqt = "INSERT INTO users (username, email, password) 
+                VALUES (:username, :email, SHA2(:pwd, 256))";
 
-        if ($result) {
-            $message = "Inscription réussie !";
-        } else {
-            $message = "Erreur lors de l'inscription.";
-        }
+        $stmt = $pdo->prepare($rqt);
+        $stmt->execute([
+            ":username" => $username,
+            ":email" => $email,
+            ":pwd" => $password
+        ]);
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    catch(PDOException $error){
+        $error->getMessage();
+    }
+}
 ?>
+
 <!DOCTYPE html>
-<html lang="fr">
-        <head>
-           <meta charset="UTF-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <title>page d'Inscription</title>
-    </head>
-    <body>
-               <h1>Inscription ou création de compte</h1>
-         <form method="post">
-                 <input type="text" name="nom" placeholder="nom" required><br><br>
-            <input type="text" name="prenom" placeholder="prenom" required><br><br>
-           <input type="email" name="email" placeholder="Email" required><br><br>
-            <input type="tel" name="num_tel" placeholder="Telephone" required><br><br>
-           <input type="date" name="date_naiss" placeholder="Date de naissance" required><br><br>
-           <input type="password" name="mdp" placeholder="Mot de passe" required><br><br>
-           <button type="submit" name="valider">S'inscrire</button>
-         </form>
-       </div>
-    </body>
+<html lang="en">
+<head>
+    <?php require_once('./includes/header.php'); ?>
+    <title>Inscription</title>
+</head>
+<body>
+    <header style="display: none">
+    </header>
+    <main>
+        <form method="POST">
+            <input type="text" name="username" placeholder="Nom d'utilisateur" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <button type="submit">S'inscrire</button>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
+</body>
 </html>
