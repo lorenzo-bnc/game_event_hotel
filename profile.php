@@ -1,7 +1,7 @@
 <?php
 
-include("./libs/lib_auth");
-include("./libs/lib_token");
+include("./libs/lib_auth.php");
+include("./libs/lib_token.php");
 
 
 $idUser = getPayloadJWT($_COOKIE["auth"])["id_utilisateur"];
